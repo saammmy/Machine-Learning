@@ -52,10 +52,14 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
-
-
-
-
+        List=list(Y)
+        occurences=dict((label,List.count(label)) for label in set(List))
+        e=0
+        length=len(Y)
+        n=len(occurences)
+        if(n>1):
+            for c in occurences.values():
+                e+=-(c/length)*math.log(c/length,2)
         #########################################
         return e 
     
@@ -75,11 +79,17 @@ class Tree(object):
         #########################################
         ## INSERT YOUR CODE HERE
 
-        
-   
-
-
- 
+        y=list(Y)
+        x=list(X)
+        ce=0
+        List=[]
+        for att in set(x):
+            pos = [i for i, x in enumerate(x) if x == att]
+            for pos1 in pos:
+                List.append(y[pos1])
+            e=Tree.entropy(List)
+            List.clear()
+            ce+=len(pos)/len(x)*e    
         #########################################
         return ce 
     
@@ -99,10 +109,9 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
-    
-
-
- 
+        ce=Tree.conditional_entropy(X,Y)
+        e=Tree.entropy(X)
+        g=e-ce
         #########################################
         return g
 
@@ -124,11 +133,14 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
+        i=0
+        maxg=0
+        for j in range(0,np.shape(X)[0]):
+            g=Tree.information_gain(Y,X[j])
+            if(g>maxg):
+                maxg=g
+                i=j
 
-
-   
-
- 
         #########################################
         return i
 
@@ -177,7 +189,7 @@ class Tree(object):
                 True if all labels are the same. Otherwise, false.
         '''
         #########################################
-        ## INSERT YOUR CODE HERE
+        ## INSERT YOUR CODE HERE 
 
 
 
