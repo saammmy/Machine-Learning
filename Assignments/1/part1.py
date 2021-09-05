@@ -270,12 +270,17 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
+
+        if(Tree.stop1(t.Y)==True or Tree.stop2(t.X)==True):
+            t.p=Tree.most_common(t.Y)
+            t.isleaf=True
+        else:
+            t.p=Tree.most_common(t.Y)
+            t.i=Tree.best_attribute(t.X,t.Y)
+            t.C=Tree.split(t.X,t.Y,t.i)
+            for value in t.C.values():
+                Tree.build_tree(value)
         
-
-   
-
-
- 
         #########################################
     
     
@@ -295,10 +300,8 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
-    
-
-
- 
+        t=Node(X,Y)
+        Tree.build_tree(t)
         #########################################
         return t
     
@@ -319,15 +322,18 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
-
-   
-
-
-
-
- 
+        if(t.isleaf==True or t.X==None or t.Y==None):
+            print("1")
+            if(t.isleaf==True):
+                return t.p
+            else:
+                return t.C.Y
+        else:
+            for att in range(0,len(x)):
+                if(Tree.best_attribute(t.X)==att):
+                    x.pop(att)
+                    y=Tree.inference(t.C[x[att],x])
         #########################################
-        return y
     
     #--------------------------
     @staticmethod
@@ -375,10 +381,11 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
-
-
-
- 
+        dataset = np.genfromtxt(filename, delimiter = ",", dtype=None, encoding='utf-8')
+        X=dataset[1:,1:]
+        X=np.transpose(X)
+        Y=dataset[1:,0]
+        Y=np.transpose(Y)
         #########################################
         return X,Y
 
