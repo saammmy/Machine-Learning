@@ -109,8 +109,8 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
-        ce=Tree.conditional_entropy(X,Y)
-        e=Tree.entropy(X)
+        ce=Tree.conditional_entropy(Y,X)
+        e=Tree.entropy(Y)
         g=e-ce
         #########################################
         return g
@@ -168,10 +168,22 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
-
-
-
-
+        x=list(X[i])
+        C={}
+        for att in set(x):
+            
+            mx=[]
+            my=[]
+            pos = [i for i, x in enumerate(x) if x == att]
+            for j in range(0,np.shape(X)[0]):
+                for pos1 in pos:
+                    mx.append(X[j,pos1])
+                    if(j==0):
+                        my.append(Y[pos1])
+            mx=np.reshape(mx,(np.shape(X)[0],len(pos)))
+            my=np.reshape(my,(len(pos),))
+            cnode=Node(mx,my)
+            C[att]=cnode
         #########################################
         return C
 
@@ -189,11 +201,12 @@ class Tree(object):
                 True if all labels are the same. Otherwise, false.
         '''
         #########################################
-        ## INSERT YOUR CODE HERE 
-
-
-
-        
+        ## INSERT YOUR CODE HERE
+        y=list(Y)
+        if y.count(Y[0])==len(Y):
+            s=True
+        else:
+            s=False
         #########################################
         return s
     
@@ -211,13 +224,11 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
-
-    
-   
-
-
-
- 
+        s=True
+        for j in range(0,np.shape(X)[0]):
+            if(Tree.stop1(X[j])!=True):
+                s=False
+                break
         #########################################
         return s
     
@@ -236,11 +247,8 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
-    
-
-
-
- 
+        y=Counter(Y)
+        y=y.most_common(1)[0][0] 
         #########################################
         return y
     
@@ -262,7 +270,7 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
-    
+        
 
    
 
