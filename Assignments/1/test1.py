@@ -728,6 +728,7 @@ def test_load_dataset():
 def test_dataset1():
     '''(4.5 points) test_dataset1'''
     X, Y = Tree.load_dataset()
+    
     t = Tree.train(X,Y) 
     Y_predict = Tree.predict(t,X) 
     accuracy = sum(Y==Y_predict)/42. # training accuracy of 42 training samples

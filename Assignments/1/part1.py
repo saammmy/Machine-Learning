@@ -322,19 +322,26 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
-        if(t.isleaf==True or t.X==None or t.Y==None):
-            print("1")
-            if(t.isleaf==True):
-                return t.p
-            else:
-                return t.C.Y
+        x=list(x)
+        if(t.isleaf==True):
+            return t.p
         else:
-            for att in range(0,len(x)):
-                if(Tree.best_attribute(t.X)==att):
-                    x.pop(att)
-                    y=Tree.inference(t.C[x[att],x])
+            count=0
+            for att in x:
+                if att in t.C:
+                    x.remove(att)
+                    if(t.C[att].isleaf==True):
+                        return t.C[att].p
+                    else:
+                        return Tree.inference(t.C[att],x)
+                else:
+                    count+=1
+            if(count==len(x)):
+                return t.p        
         #########################################
-    
+        
+        
+
     #--------------------------
     @staticmethod
     def predict(t,X):
@@ -351,11 +358,10 @@ class Tree(object):
         '''
         #########################################
         ## INSERT YOUR CODE HERE
-
-
-
-
-
+        Y=[]
+        for i in range(np.shape(X)[1]):
+            Y.append(Tree.inference(t,X[:,i]))
+        Y=np.reshape(Y,(np.shape(X)[1],))
         #########################################
         return Y
 
