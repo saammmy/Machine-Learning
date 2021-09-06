@@ -1,21 +1,21 @@
-from part1 import *
+from part2 import *
 import numpy as np
 import sys
 '''
     Unit test 1:
     This file includes unit tests for py.py.
     You could test the correctness of your code by typing `nosetests -v test1.py` in the terminal.
-'''
+
 
 #-------------------------------------------------------------------------
 def test_python_version():
-    ''' ----------- Problem 1 (60 points in total)---------------------'''
+    # ----------- Problem 1 (60 points in total)---------------------
     assert sys.version_info[0]==3 # require python 3 
 
 
 #-------------------------------------------------------------------------
 def test_entropy():
-    ''' (4.5 points) entropy '''
+    # (4.5 points) entropy
     y = np.array([0.,0.])
     e = Tree.entropy(y)
     assert np.allclose(e, 0., atol = 1e-3) 
@@ -62,7 +62,7 @@ def test_entropy():
 
 #-------------------------------------------------------------------------
 def test_conditional_entropy():
-    '''(6 points) conditional entropy '''
+    #(6 points) conditional entropy
 
     y = np.array([0.,0.])
     x = np.array([1.,1.])
@@ -117,7 +117,7 @@ def test_conditional_entropy():
 
 #-------------------------------------------------------------------------
 def test_information_gain():
-    '''(3 points) information gain'''
+    #(3 points) information gain
 
     y = np.array([0.,1.])
     x = np.array([1.,2.])
@@ -154,7 +154,7 @@ def test_information_gain():
 
 #-------------------------------------------------------------------------
 def test_best_attribute():
-    '''(4.5 points) best attribute'''
+    #(4.5 points) best attribute
 
     X = np.array([[1.,1.],
                   [1.,2.]])
@@ -197,7 +197,7 @@ def test_best_attribute():
 
 #-------------------------------------------------------------------------
 def test_split():
-    '''(4.5 points) split'''
+    #(4.5 points) split
 
     X = np.array([['apple','orange','pineapple','banana'],
                   ['high','high','low','low'],
@@ -292,7 +292,7 @@ def test_split():
 
 #-------------------------------------------------------------------------
 def test_stop1():
-    '''(4.5 points) stop1'''
+    #(4.5 points) stop1
 
     Y = np.array(['good','bad','okay','perfect'])
     assert Tree.stop1(Y) == False
@@ -304,7 +304,7 @@ def test_stop1():
 
 #-------------------------------------------------------------------------
 def test_stop2():
-    '''(4.5 points) stop2'''
+    #(4.5 points) stop2
     X = np.array([['apple','orange','pineapple','banana'],
                   ['high','high','low','low'],
                   ['a','b','c','d']])
@@ -335,7 +335,7 @@ def test_stop2():
 
 #-------------------------------------------------------------------------
 def test_most_common():
-    '''(3 points) most_common'''
+    #(3 points) most_common
 
     Y = np.array(['good','bad','good','perfect'])
     assert Tree.most_common(Y) == 'good'
@@ -346,7 +346,7 @@ def test_most_common():
 
 #-------------------------------------------------------------------------
 def test_build_tree():
-    '''(3 points) build_tree'''
+    #(3 points) build_tree
     X = np.array([['apple'],
                   ['high'],
                   ['a']])
@@ -543,7 +543,7 @@ def test_build_tree():
 
 #-------------------------------------------------------------------------
 def test_train():
-    '''(4.5 points) train'''
+    #(4.5 points) train
 
     X = np.array([['apple','apple','apple','banana'],
                   ['high','low','low','high'],
@@ -622,7 +622,7 @@ def test_train():
 
 #-------------------------------------------------------------------------
 def test_inference():
-    '''(4.5 points) inference'''
+    #(4.5 points) inference
 
     t = Node(None,None) 
     t.isleaf = True
@@ -677,7 +677,7 @@ def test_inference():
 
 #-------------------------------------------------------------------------
 def test_predict():
-    '''(4.5 points) predict'''
+    #(4.5 points) predict
     t = Node(None,None) 
     t.isleaf = False 
     t.i = 1
@@ -705,7 +705,7 @@ def test_predict():
 
 #-------------------------------------------------------------------------
 def test_load_dataset():
-    '''(4.5 points) load_dataset'''
+    #(4.5 points) load_dataset
     X, Y = Tree.load_dataset()
     assert type(X) == np.ndarray
     assert type(Y) == np.ndarray
@@ -722,21 +722,37 @@ def test_load_dataset():
     assert X[1,-2] =='79 to 100'
     assert X[-1,0] =='America'
     assert X[-1,-2] =='Asia'
-
+    
+'''
 
 #-------------------------------------------------------------------------
 def test_dataset1():
     '''(4.5 points) test_dataset1'''
     X, Y = Tree.load_dataset()
+    '''
+    print("X")
+    print(X)
+    print("Y")
+    print(Y)
+    '''
     t = Tree.train(X,Y) 
-    Y_predict = Tree.predict(t,X) 
-    accuracy = sum(Y==Y_predict)/42. # training accuracy of 42 training samples
+    Y_predict = Tree.predict(t,X)
+    # print("Predict")
+    print(Y_predict)
+    accuracy = sum(Y==Y_predict)/9. # training accuracy of 42 training samples
     print('training accuracy:', accuracy)
-    assert accuracy >= 39./42 # test training accuracy of 42 training samples
+    assert accuracy >= 5./9 # test training accuracy of 42 training samples
+
+    X1=['low','low','no','yes','male']
+    X2=['low','medium','yes','yes','female']
+    Y1_predict=Tree.inference(t,X1)
+    Y2_predict=Tree.inference(t,X2)
+    print("Credit Risk for Tom= "+str(Y1_predict))
+    print("Credit Risk for Ana= "+str(Y2_predict))
+
 
     # train over half of the dataset
-    t = Tree.train(X[:,::2],Y[::2]) 
-    # test on the other half
+    t = Tree.train(X[:,::2],Y[::2]) #on the other half
     Y_predict = Tree.predict(t,X[:,1::2]) 
     accuracy = sum(Y[1::2]==Y_predict)/21. 
     print( 'test accuracy:', accuracy)

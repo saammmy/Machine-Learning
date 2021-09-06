@@ -1,0 +1,10 @@
+Name,Risk,Debt,Income,Married?,Owns_Property,Gender
+Tim,low,low,low,no,no,male
+Joe,low,high,high,yes,yes,male
+Sue,low,low,high,yes,no,female
+John,high,medium,low,no,no,male
+Mary,high,high,low,yes,no,female
+Fred,high,low,low,yes,no,male
+Pete,low,low,medium,no,yes,male
+Jacob,low,high,medium,yes,yes,male
+Sofia,low,medium,low,no,no,female

@@ -303,6 +303,7 @@ class Tree(object):
             t.i=Tree.best_attribute(t.X,t.Y)
             t.C=Tree.split(t.X,t.Y,t.i)
             for value in t.C.values():
+                print(t.C)
                 Tree.build_tree(value)
         
         #########################################
@@ -393,7 +394,7 @@ class Tree(object):
 
     #--------------------------
     @staticmethod
-    def load_dataset(filename = 'data1.csv'):
+    def load_dataset(filename = 'credit.csv'):
         '''
             Load dataset 1 from the CSV file: 'data1.csv'. 
             The first row of the file is the header (including the names of the attributes)
@@ -412,13 +413,11 @@ class Tree(object):
         #########################################
         ## INSERT YOUR CODE HERE
         dataset = np.genfromtxt(filename, delimiter = ",", dtype=None, encoding='utf-8')
-        X=dataset[1:,1:]
+        print(dataset)
+        X=dataset[1:,2:]
         X=np.transpose(X)
-        Y=dataset[1:,0]
-        print(np.shape(Y))
-        print("Transpose")
+        Y=dataset[1:,1]
         Y=np.transpose(Y)
-        print(np.shape(Y))
         #########################################
         return X,Y
 
