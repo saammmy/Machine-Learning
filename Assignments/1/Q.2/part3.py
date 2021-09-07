@@ -272,13 +272,13 @@ class Tree(object):
         if(Tree.stop1(t.Y)==True or Tree.stop2(t.X)==True):
             t.p=Tree.most_common(t.Y)
             t.isleaf=True
-            print("Is Leaf_________________")
+            #print("Is Leaf_________________")
         else:
             t.p=Tree.most_common(t.Y)
             t.i=Tree.best_attribute(t.X,t.Y)
             t.C=Tree.split(t.X,t.Y,t.i)
             for value in t.C.values():
-                
+                '''
                 print(" ")
                 print("Best Attribute Position")
                 print(t.i)
@@ -292,6 +292,7 @@ class Tree(object):
                 print("Y Sub Matrix")
                 print(value.Y)
                 print(" ")
+                '''
                 
                 Tree.build_tree(value)
         
@@ -395,12 +396,12 @@ class Tree(object):
         #########################################
         ## INSERT YOUR CODE HERE
         dataset = np.genfromtxt(filename, delimiter = ",", dtype=None, encoding='utf-8')
-
+        '''
         print('Data Set')
         print(dataset)
         print(" ")
         print("Lets Train")
-    
+        '''
         X=dataset[1:,2:]
         X=np.transpose(X)
         Y=dataset[1:,1]

@@ -741,4 +741,4 @@ def test_dataset1():
     accuracy = sum(Y[1::2]==Y_predict)/21. 
     print( 'test accuracy:', accuracy)
     assert accuracy >= .7
-    
+

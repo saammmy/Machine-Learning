@@ -732,23 +732,24 @@ def test_dataset1():
     t = Tree.train(X,Y) 
     Y_predict = Tree.predict(t,X) 
     #print(Y_predict)
-    accuracy = sum(Y==Y_predict)/9. # training accuracy of 42 training samples
-    print('training accuracy:', accuracy)
-    X1=['low','high','no','yes','male']
-    X2=['low','medium','yes','yes','female']
+    accuracy = sum(Y==Y_predict)/9. # training accuracy of 9 training samples
+    
+    print('\n training accuracy:', accuracy)
+    
+    X1=['low','low','no','yes','male']              #Data of TOM
+    X2=['low','medium','yes','yes','female']        #Data of ANA
+    
     Y1_predict=Tree.inference(t,X1)
     Y2_predict=Tree.inference(t,X2)
-    print("Credit Risk for Tom= "+str(Y1_predict))
-    print("Credit Risk for Ana= "+str(Y2_predict))
-    assert accuracy >= 10./9 # test training accuracy of 42 training samples
+    print("\n Credit Risk For:")
+    print("\n 1. TOM = "+str(Y1_predict))  #Printing the Label Predicted for TOM
+    print("\n 2. ANA = "+str(Y2_predict))  #Printing the Label Predicted for ANA
     
+    print("\n \n \n End of Code")
+    assert accuracy >= 10./9 # Purposely kept accuracy check over 100% to display o/p of this fucntion
 
-    '''
-    # train over half of the dataset
-    t = Tree.train(X[:,::2],Y[::2]) 
-    # test on the other half
-    Y_predict = Tree.predict(t,X[:,1::2]) 
-    accuracy = sum(Y[1::2]==Y_predict)/21. 
-    print( 'test accuracy:', accuracy)
-    assert accuracy >= .7
-    '''
+
+
+
+
+    
