@@ -61,6 +61,7 @@ class Tree(object):
             for c in occurences.values():
                 e+=-(c/length)*math.log(c/length,2)
         #########################################
+        
         return e 
     
     
@@ -93,8 +94,6 @@ class Tree(object):
         #########################################
         return ce 
     
-    
-    
     #--------------------------
     @staticmethod
     def information_gain(Y,X):
@@ -114,33 +113,7 @@ class Tree(object):
         g=e-ce
         #########################################
         return g
-    '''
-    def split_information(Y,X):
-        #Compute the split information gain
-        y=list(Y)
-        x=list(X)
-        si=0
-        List=[]
-        for att in set(x):
-            pos = [i for i, x in enumerate(x) if x == att]
-            si+=-len(pos)/len(x)*math.log(len(pos)/len(x),2)
-        #########################################
-        return si 
 
-    def gain_ratio(Y,X):
-        #Compute the gain ratio 
-        ig=Tree.information_gain(Y,X)
-        si=Tree.split_information(Y,X)
-        if(si==0):
-            if(ig==0):
-                return ig
-            else:
-                return 100
-        else:
-            return ig
-
-    #--------------------------
-    '''
     @staticmethod
     def best_attribute(X,Y):
         '''
@@ -159,6 +132,7 @@ class Tree(object):
         ## INSERT YOUR CODE HERE
         i=0
         maxg=0
+
         for j in range(0,np.shape(X)[0]):
             g=Tree.information_gain(Y,X[j])
             if(g>maxg):
@@ -347,21 +321,16 @@ class Tree(object):
         #########################################
         ## INSERT YOUR CODE HERE
         x=list(x)
-        if(t.isleaf==True):
-            return t.p
-        else:
-            count=0
-            for att in x:
-                if att in t.C:
-                    x.remove(att)
-                    if(t.C[att].isleaf==True):
-                        return t.C[att].p
-                    else:
-                        return Tree.inference(t.C[att],x)
-                else:
-                    count+=1
-            if(count==len(x)):
-                return t.p        
+        y=t.p
+        if(t.isleaf!=True):
+            for keys in t.C.keys():
+                for att in range(0,len(x)):
+                    if x[att] == keys and att==t.i:
+                        if(t.C[x[att]].isleaf==True):
+                            y= t.C[x[att]].p
+                        else:
+                            y= Tree.inference(t.C[x[att]],x)        
+        return y        
         #########################################
         
         
@@ -383,7 +352,7 @@ class Tree(object):
         #########################################
         ## INSERT YOUR CODE HERE
         Y=[]
-        for i in range(np.shape(X)[1]):
+        for i in range(0,np.shape(X)[1]):
             Y.append(Tree.inference(t,X[:,i]))
         Y=np.reshape(Y,(np.shape(X)[1],))
         #########################################
@@ -392,7 +361,7 @@ class Tree(object):
 
 
     #--------------------------
-    @staticmethod
+    @staticmethod        
     def load_dataset(filename = 'data1.csv'):
         '''
             Load dataset 1 from the CSV file: 'data1.csv'. 
@@ -414,11 +383,10 @@ class Tree(object):
         dataset = np.genfromtxt(filename, delimiter = ",", dtype=None, encoding='utf-8')
         X=dataset[1:,1:]
         X=np.transpose(X)
+        #print(X)
         Y=dataset[1:,0]
-        print(np.shape(Y))
-        print("Transpose")
         Y=np.transpose(Y)
-        print(np.shape(Y))
+        #print(Y)
         #########################################
         return X,Y
 
